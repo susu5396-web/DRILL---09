@@ -1,0 +1,7 @@
+"""화면과 캐릭터의 공통 설정."""
+WIDTH = 800
+HEIGHT = 600
+FRAME_SIZE = 100
+FRAME_COUNT = 8
+SPEED = 200.0
+ANIMATION_FPS = 10.0
