@@ -25,6 +25,9 @@ def main():
                 event.type == p.SDL_KEYDOWN and event.key == p.SDLK_ESCAPE
             ):
                 running = False
+            elif (event.type == p.SDL_WINDOWEVENT and
+                  event.event == p.SDL_WINDOWEVENT_FOCUS_LOST):
+                controls.clear()
             elif event.type == p.SDL_KEYDOWN:
                 controls.press(keys.get(event.key))
             elif event.type == p.SDL_KEYUP:

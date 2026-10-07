@@ -10,6 +10,9 @@ class Controls:
     def release(self, key):
         self.pressed.discard(key)
 
+    def clear(self):
+        self.pressed.clear()
+
     @property
     def direction(self):
         return (int('right' in self.pressed) - int('left' in self.pressed),
