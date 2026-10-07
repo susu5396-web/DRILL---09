@@ -27,6 +27,7 @@ python move_character_with_key.py
 
 ```powershell
 python -m unittest discover -v
+python smoke_render.py
 python -m compileall -q character.py controls.py assets.py rendering.py settings.py move_character_with_key.py
 ```
 

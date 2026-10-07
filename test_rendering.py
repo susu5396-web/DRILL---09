@@ -53,5 +53,19 @@ class AnimationTests(unittest.TestCase):
                     game.main()
                 api.close_canvas.assert_called_once()
 
+    def test_focus_loss_clears_input_before_update(self):
+        api = Mock()
+        api.SDL_QUIT, api.SDL_KEYDOWN, api.SDL_KEYUP = 1, 2, 3
+        api.SDLK_ESCAPE, api.SDLK_RIGHT = 27, 100
+        api.SDL_GetKeyboardFocus.return_value = None
+        api.get_events.side_effect = [
+            [SimpleNamespace(type=2, key=100)],
+            [SimpleNamespace(type=1)],
+        ]
+        with patch.object(game, 'p', api), patch.object(game, 'load_assets', return_value=(Mock(), Mock())), patch.object(game, 'Character') as cls:
+            game.main()
+            self.assertEqual(cls.return_value.update.call_args.args[:2], (0, 0))
+            api.close_canvas.assert_called_once()
+
 if __name__ == '__main__':
     unittest.main()
