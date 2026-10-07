@@ -21,3 +21,4 @@ class Character:
         self.y += dy * SPEED * dt
         half = FRAME_SIZE / 2
         self.x = max(half, min(WIDTH - half, self.x))
+        self.y = max(half, min(HEIGHT - half, self.y))
