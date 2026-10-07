@@ -12,3 +12,4 @@ class Character:
 
     def update(self, dx, dy, dt):
         self.x += dx * SPEED * dt
+        self.y += dy * SPEED * dt
