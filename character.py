@@ -19,3 +19,5 @@ class Character:
             self.facing = 1 if dx > 0 else -1
         self.x += dx * SPEED * dt
         self.y += dy * SPEED * dt
+        half = FRAME_SIZE / 2
+        self.x = max(half, min(WIDTH - half, self.x))
