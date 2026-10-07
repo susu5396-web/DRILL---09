@@ -2,6 +2,7 @@
 import pico2d as p
 from assets import load_assets
 from character import Character
+from controls import Controls
 from rendering import draw_character
 from settings import WIDTH, HEIGHT
 
@@ -9,6 +10,9 @@ def main():
     p.open_canvas(WIDTH, HEIGHT)
     ground, sheet = load_assets(p)
     character = Character()
+    controls = Controls()
+    keys = {p.SDLK_LEFT: 'left', p.SDLK_RIGHT: 'right',
+            p.SDLK_UP: 'up', p.SDLK_DOWN: 'down'}
     running = True
     while running:
         for event in p.get_events():
@@ -16,6 +20,11 @@ def main():
                 event.type == p.SDL_KEYDOWN and event.key == p.SDLK_ESCAPE
             ):
                 running = False
+            elif event.type == p.SDL_KEYDOWN:
+                controls.press(keys.get(event.key))
+            elif event.type == p.SDL_KEYUP:
+                controls.release(keys.get(event.key))
+        character.update(*controls.direction, 0.01)
         p.clear_canvas()
         ground.draw(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT)
         draw_character(sheet, character)
