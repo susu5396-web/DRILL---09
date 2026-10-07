@@ -11,5 +11,7 @@ class Character:
     frame: int = 0
 
     def update(self, dx, dy, dt):
+        if dx:
+            self.facing = 1 if dx > 0 else -1
         self.x += dx * SPEED * dt
         self.y += dy * SPEED * dt
