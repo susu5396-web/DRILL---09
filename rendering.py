@@ -2,6 +2,6 @@
 from settings import FRAME_SIZE
 
 def draw_character(sheet, character):
-    row = 3 if character.facing == 1 else 2
+    row = (0 if character.moving else 2) + int(character.facing == 1)
     sheet.clip_draw(character.frame * FRAME_SIZE, row * FRAME_SIZE,
                     FRAME_SIZE, FRAME_SIZE, character.x, character.y)

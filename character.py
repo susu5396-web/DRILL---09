@@ -12,6 +12,7 @@ class Character:
     frame: int = 0
 
     def update(self, dx, dy, dt):
+        previous = self.x, self.y
         length = hypot(dx, dy)
         if length:
             dx, dy = dx / length, dy / length
@@ -22,3 +23,4 @@ class Character:
         half = FRAME_SIZE / 2
         self.x = max(half, min(WIDTH - half, self.x))
         self.y = max(half, min(HEIGHT - half, self.y))
+        self.moving = previous != (self.x, self.y)
