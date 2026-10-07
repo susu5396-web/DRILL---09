@@ -10,6 +10,7 @@ class Character:
     facing: int = 1
     moving: bool = False
     frame: int = 0
+    elapsed: float = 0.0
 
     def update(self, dx, dy, dt):
         previous = self.x, self.y
@@ -24,3 +25,5 @@ class Character:
         self.x = max(half, min(WIDTH - half, self.x))
         self.y = max(half, min(HEIGHT - half, self.y))
         self.moving = previous != (self.x, self.y)
+        self.elapsed += dt
+        self.frame = int(self.elapsed * ANIMATION_FPS) % FRAME_COUNT
