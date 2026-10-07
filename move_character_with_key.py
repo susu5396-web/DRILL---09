@@ -26,15 +26,15 @@ def main():
                     event.type == p.SDL_KEYDOWN and event.key == p.SDLK_ESCAPE
                 ):
                     running = False
-                elif (event.type == p.SDL_WINDOWEVENT and
-                      event.event == p.SDL_WINDOWEVENT_FOCUS_LOST):
-                    controls.clear()
                 elif event.type == p.SDL_KEYDOWN:
                     controls.press(keys.get(event.key))
                 elif event.type == p.SDL_KEYUP:
                     controls.release(keys.get(event.key))
             if not running:
                 break
+            # Pico2D는 창 이벤트를 전달하지 않으므로 SDL의 실제 포커스를 조회한다.
+            if not p.SDL_GetKeyboardFocus():
+                controls.clear()
             character.update(*controls.direction, dt)
             p.clear_canvas()
             ground.draw(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT)
