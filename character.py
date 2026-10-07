@@ -11,4 +11,4 @@ class Character:
     frame: int = 0
 
     def update(self, dx, dy, dt):
-        pass
+        self.x += dx * SPEED * dt
