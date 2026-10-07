@@ -13,6 +13,7 @@ class Character:
     elapsed: float = 0.0
 
     def update(self, dx, dy, dt):
+        old_state = self.moving, self.facing
         previous = self.x, self.y
         length = hypot(dx, dy)
         if length:
@@ -25,5 +26,8 @@ class Character:
         self.x = max(half, min(WIDTH - half, self.x))
         self.y = max(half, min(HEIGHT - half, self.y))
         self.moving = previous != (self.x, self.y)
-        self.elapsed += dt
+        if old_state != (self.moving, self.facing):
+            self.elapsed = 0.0
+        else:
+            self.elapsed += dt
         self.frame = int(self.elapsed * ANIMATION_FPS) % FRAME_COUNT
