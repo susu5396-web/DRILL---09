@@ -1,55 +1,20 @@
-from pico2d import *
+"""방향키로 소년을 움직이는 Drill 9 실행 파일."""
+import pico2d as p
+from settings import WIDTH, HEIGHT
 
-
-open_canvas()
-grass = load_image('grass.png')
-character = load_image('animation_sheet.png')
-
-
-def handle_events():
-    global running , dir
-    global x
-
-    events = get_events()
-    for event in events:
-        if event.type == SDL_QUIT:
-            running = False
-        elif event.type == SDL_KEYDOWN:
-            if event.key == SDLK_RIGHT:
-                dir += 1
-            elif event.key == SDLK_LEFT:
-                dir -= 1
-            elif event.key == SDLK_ESCAPE:
+def main():
+    p.open_canvas(WIDTH, HEIGHT)
+    running = True
+    while running:
+        for event in p.get_events():
+            if event.type == p.SDL_QUIT or (
+                event.type == p.SDL_KEYDOWN and event.key == p.SDLK_ESCAPE
+            ):
                 running = False
-        elif event.type == SDL_KEYUP:
-            if event.key == SDLK_RIGHT:
-                dir -= 1
-            elif event.key == SDLK_LEFT:
-                dir += 1
-          
-    events = get_events()
-    for event in events:
-        if event.type == SDL_QUIT:
-            running = False
-        # fill here
+        p.clear_canvas()
+        p.update_canvas()
+        p.delay(0.01)
+    p.close_canvas()
 
-
-running = True
-x = 800 // 2
-frame = 0
-dir = 0
-
-while running:
-    clear_canvas()
-    grass.draw(400,30)
-    character.clip_draw(frame*100,100,100,100,x,90)
-    update_canvas()
-    handle_events()
-    frame = (frame + 1) % 8
-    x += dir * 5
-    delay(0.05)
-
-
-
-close_canvas()
-
+if __name__ == '__main__':
+    main()
